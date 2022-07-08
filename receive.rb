@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+require 'bunny'
+
+connection = Bunny.new
+connection.start
+
+channel = connection.create_channel
+queue = channel.queue('hello')
+
+begin
+    puts ' [*] Waiting for messages. To exit press CTRL + C'
+
+    queue.subscribe(block: true) do | _delivery_info, _properties, body|
+        puts " [X] received Lionel Reach says: '#{body}'"
+    end
+rescue Interrupt => _
+    connection.close
+
+    exit(0)
+end
