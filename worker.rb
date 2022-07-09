@@ -7,6 +7,8 @@ connection.start
 channel = connection.create_channel
 queue = channel.queue('hello')
 
+channel.queue('durable_task', durable: true)
+
 # If a consumer dies (its channel is closed, connection is closed, or TCP connection is lost)
 # without sending an ack, RabbitMQ will understand that a message wasn't processed fully and
 # will re-queue it. If there are other consumers online at the same time, it will then quickly 

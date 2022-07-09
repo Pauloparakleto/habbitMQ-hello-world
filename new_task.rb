@@ -7,6 +7,8 @@ connection.start
 channel = connection.create_channel
 queue = channel.queue('hello')
 
+channel.queue('durable_task', durable: true)
+
 message = ARGV.empty? ? 'Hello World!' : ARGV.join('')
 
 queue.publish(message, persistent: true)
