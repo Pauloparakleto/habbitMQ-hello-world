@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 require 'bunny'
 
+QUANTITY_OF_MESSAGES_TO_WORKER = 1 # This tells RabbitMQ not to give more than one message to a worker at a time.
+
 connection = Bunny.new
 connection.start
 
@@ -8,6 +10,8 @@ channel = connection.create_channel
 queue = channel.queue('hello')
 
 channel.queue('durable_task', durable: true)
+
+channel.prefetch(QUANTITY_OF_MESSAGES_TO_WORKER)
 
 message = ARGV.empty? ? 'Hello World!' : ARGV.join('')
 
