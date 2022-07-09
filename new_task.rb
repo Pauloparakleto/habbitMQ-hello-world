@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# https://www.rabbitmq.com/tutorials/tutorial-two-ruby.html
 require 'bunny'
 
 QUANTITY_OF_MESSAGES_TO_WORKER = 1 # This tells RabbitMQ not to give more than one message to a worker at a time.
